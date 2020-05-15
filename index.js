@@ -19,84 +19,90 @@ c) correct answer (I would use a number for this)
 7. Suppose this code would be a plugin for other programmers to use in their code. So make sure that all your code is private and doesn't interfere with the other programmers code (Hint: we learned a special technique to do exactly that).
 */
 
-var Question = function(question, responses, correctAnswer) {
-    this.question = question;
-    this.responses = responses;
-    this.correctAnswer = correctAnswer
-}
-
-Question.prototype.getQuestion = function(questions) {
-    var quest = questions[Math.floor(Math.random() * Math.floor(3))]
-    console.log(quest.question + ' ?');
-    for(var i = 0; i <  quest.responses.length; i++) {
-        console.log(quest.responses[i].id + ' : ' + quest.responses[i].response);
+(function(){
+    var Question = function(question, responses, correctAnswer) {
+        this.question = question;
+        this.responses = responses;
+        this.correctAnswer = correctAnswer
     }
 
-    var prompt = window.prompt("Select the correct Answer ? (Enter a number)");
-    console.log(prompt)
+    Question.prototype.getQuestion = function() {
 
-    if(prompt == quest.correctAnswer) {
-        console.log('You win')
+        console.log(this.question + ' ?');
+        for(var i = 0; i <  this.responses.length; i++) {
+            console.log(this.responses[i].id + ' : ' + this.responses[i].response);
+        }
     }
-}
 
-var questOne = new Question(
-    'What is hoisting',
-    [
-        {
-            id: 0,
-            response: 'Is a toy'
-        },
-        {
-            id: 1,
-            response: 'is the way of calling functions and variables'
-        },
-        {
-            id: 2,
-            response: 'is an unsusfull feature'
+    Question.prototype.checkAnswer = function (enterd) {
+        if (enterd == this.correctAnswer) {
+            console.log('You are correct')
         }
-    ],
-    1
-);
+    }
+
+    var questOne = new Question(
+        'What is hoisting',
+        [
+            {
+                id: 0,
+                response: 'Is a toy'
+            },
+            {
+                id: 1,
+                response: 'is the way of calling functions and variables'
+            },
+            {
+                id: 2,
+                response: 'is an unsusfull feature'
+            }
+        ],
+        1
+    );
 
 
-var questTwo = new Question(
-    'Is JS Fun',
-    [
-        {
-            id: 0,
-            response: 'Yes'
-        },
-        {
-            id: 1,
-            response: 'No'
-        }
-    ],
-    0
-);
+    var questTwo = new Question(
+        'Is JS Fun',
+        [
+            {
+                id: 0,
+                response: 'Yes'
+            },
+            {
+                id: 1,
+                response: 'No'
+            }
+        ],
+        0
+    );
 
 
-var questThree = new Question(
-    'What is my name',
-    [
-        {
-            id: 0,
-            response: 'Jalal'
-        },
-        {
-            id: 1,
-            response: 'mahmoud'
-        },
-        {
-            id: 2,
-            response: 'ussef'
-        }
-    ],
-    1
-);
+    var questThree = new Question(
+        'What is my name',
+        [
+            {
+                id: 0,
+                response: 'Jalal'
+            },
+            {
+                id: 1,
+                response: 'mahmoud'
+            },
+            {
+                id: 2,
+                response: 'ussef'
+            }
+        ],
+        1
+    );
 
-var arrayQuest = [questOne, questTwo, questThree];
+    var arrayQuest = [questOne, questTwo, questThree];
+    var n = Math.floor(Math.random() * arrayQuest.length);
 
+    arrayQuest[n].getQuestion();
 
+    var answer = parseInt(
+            prompt("Select the correct Answer ? (Enter a number)")
+        );
+    arrayQuest[n].checkAnswer(answer);
 
-Question.prototype.getQuestion(arrayQuest);
+})();
